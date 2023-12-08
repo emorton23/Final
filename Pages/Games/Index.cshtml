@@ -1,0 +1,146 @@
+@page
+@model Final.Pages.Games.IndexModel
+
+@{
+    ViewData["Title"] = "Games";
+}
+
+<h1>Games</h1>
+<hr />
+@{
+    var prevDisabled = "";
+    if (Model.PageNum <= 1)
+    {
+        prevDisabled = "disabled";
+    }
+}
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum - 1)">Previous</a></li>
+        <li class="page-item"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum + 1)">Next</a></li>
+    </ul>
+</nav>
+<div class="row">
+<div class="col-md-8">
+    <form>
+	<select asp-for="CurrentSort" asp-items="Model.SortList">
+		<option value="">sort by...</option>
+	</select>
+	<button type="submit">Sort</button>
+</form>
+</div>
+<div class="col-md-4"
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" placeholder="Search" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to List</a>
+        </p>
+    </div>
+</form>
+</div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @{
+                    var titleSort = "title_asc";
+                    if (Model.CurrentSort == "title_asc")
+                    {
+                        titleSort = "title_desc";
+                    }
+                }
+                <a asp-page="./Index" asp-route-CurrentSort="@titleSort">@Html.DisplayNameFor(model => model.Game[0].Title)</a>
+            </th>
+            <th>
+               @{
+                    var devSort = "dev_asc";
+                    if (Model.CurrentSort == "dev_asc")
+                    {
+                        devSort = "dev_desc";
+                    }
+                }
+                <a asp-page="./Index" asp-route-CurrentSort="@devSort">@Html.DisplayNameFor(model => model.Game[0].Developer)</a>
+            </th>
+            <th>
+               @{
+                    var genreSort = "genre_asc";
+                    if (Model.CurrentSort == "genre_asc")
+                    {
+                        genreSort = "genre_desc";
+                    }
+                }
+                <a asp-page="./Index" asp-route-CurrentSort="@genreSort">@Html.DisplayNameFor(model => model.Game[0].Genre)</a>
+            </th>
+            <th>
+                @{
+                    var priceSort = "price_asc";
+                    if (Model.CurrentSort == "price_asc")
+                    {
+                        priceSort = "price_desc";
+                    }
+                }
+                <a asp-page="./Index" asp-route-CurrentSort="@priceSort">@Html.DisplayNameFor(model => model.Game[0].Price)</a>
+            </th>
+            <th>
+                @{
+                    var ownedSort = "owned_asc";
+                    if (Model.CurrentSort == "owned_asc")
+                    {
+                        ownedSort = "owned_desc";
+                    }
+                }
+                <a asp-page="./Index" asp-route-CurrentSort="@ownedSort">Owned</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Game) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Developer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td center>
+                @if(item.UserId == 1){
+                    <p>Owned</p>
+                }
+            </td>
+            <td>
+                <a asp-page = "./Edit" asp-route-id= "@item.GameId"><div class="form-group">
+                <input type="submit" value="Buy" class="btn btn-primary" style = "background-color: limegreen" />
+                </div></a>
+                <p></p>
+                <a asp-page="./Details" asp-route-id="@item.GameId"><div class="form-group">
+                <input type="submit" value="Details" class="btn btn-primary" />
+                </div></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<hr />
+@{
+    if (Model.PageNum <= 1)
+    {
+        prevDisabled = "disabled";
+    }
+}
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum - 1)">Previous</a></li>
+        <li class="page-item"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum + 1)">Next</a></li>
+    </ul>
+</nav>

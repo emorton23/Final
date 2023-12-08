@@ -1,0 +1,51 @@
+@page
+@model Final.Pages.Games.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Game</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Game.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Game.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Game.Developer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Game.Developer)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Game.Genre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Game.Genre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Game.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Game.Price)
+        </dd>
+        <dt class="col-sm-2">
+            Owned
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Game.User.UserId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page = "./Edit" asp-route-id= "@Model.Game.GameId"><div class="form-group">
+                <input type="submit" value="Buy" class="btn btn-primary" style = "background-color: limegreen" />
+                </div></a>
+    <a asp-page="./Index">Back to List</a>
+</div>
